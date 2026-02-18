@@ -1,0 +1,313 @@
+:root {
+    --bg-color: #f5f5f7;
+    /* Apple's classic light gray */
+    --text-primary: #1d1d1f;
+    --text-secondary: #86868b;
+    --card-bg: #ffffff;
+
+    --font-stack: "Inter", -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+    --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    font-family: var(--font-stack);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    overflow-x: hidden;
+}
+
+/* Subtle gradient mesh for that "Premium Product" feel */
+body::before {
+    content: '';
+    position: fixed;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at 50% 30%, rgba(255, 255, 255, 0.8) 0%, rgba(245, 245, 247, 0) 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.wrapper {
+    width: 100%;
+    max-width: 440px;
+    padding: 2rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    opacity: 0;
+    transform: scale(0.96);
+    animation: appEntrance 1.4s var(--ease-out-expo) forwards;
+}
+
+@keyframes appEntrance {
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes slideUpFade {
+    from {
+        opacity: 0;
+        transform: translateY(24px);
+    }
+
+    to {
+        opacity: var(--target-opacity, 1);
+        transform: translateY(0);
+    }
+}
+
+@keyframes vibrate-passive {
+
+    0%,
+    100% {
+        transform: translate(0, 0) rotate(0deg);
+    }
+
+    10% {
+        transform: translate(-1px, 0) rotate(-1deg);
+    }
+
+    15% {
+        transform: translate(1px, 0) rotate(1deg);
+    }
+
+    20% {
+        transform: translate(-1px, 0) rotate(0deg);
+    }
+
+    25% {
+        transform: translate(1px, 0) rotate(0deg);
+    }
+
+    30% {
+        transform: translate(0, 0) rotate(0deg);
+    }
+}
+
+.logo-container {
+    position: relative;
+    margin-bottom: 0.5rem;
+    width: 160px;
+    /* Slightly larger */
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo {
+    width: 100%;
+    height: auto;
+    display: block;
+    /* Magic trick: makes the white background of the image transparent 
+       so it blends with the grey page background */
+    mix-blend-mode: multiply;
+}
+
+.title {
+    display: none;
+}
+
+.subtitle {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    margin-bottom: 2rem;
+}
+
+/* Button & Card Styles */
+
+/* Main CTA - WhatsApp */
+.main-cta-container {
+    width: 100%;
+    margin-bottom: 1.2rem;
+    position: relative;
+    z-index: 10;
+}
+
+.whatsapp-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+}
+
+.btn-primary {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    width: 100%;
+    padding: 1.5rem;
+    background: #000000;
+    border-radius: 20px;
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.2rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.3);
+    /* Deeper shadow */
+    transition: transform 0.2s var(--ease-out-expo), box-shadow 0.2s;
+}
+
+.btn-primary.is-main {
+    animation: vibrate-passive 3s infinite ease-in-out;
+}
+
+.btn-primary:active {
+    transform: scale(0.97);
+    animation: none;
+}
+
+.btn-primary i {
+    font-size: 1.5rem;
+    color: #25D366;
+}
+
+/* Secondary Actions */
+.secondary-actions {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 2.5rem;
+}
+
+.btn-secondary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 1.3rem 1.6rem;
+    /* Clean White Card against Grey Bg */
+    background: var(--card-bg);
+    border-radius: 18px;
+    color: var(--text-primary);
+    text-decoration: none;
+    font-size: 1.05rem;
+    font-weight: 500;
+
+    /* Apple-style card shadow */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+
+    transition: all 0.2s var(--ease-out-expo);
+}
+
+.btn-secondary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+.btn-secondary:active {
+    transform: scale(0.98);
+}
+
+.btn-secondary i {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+/* Social Proof Grid */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    width: 100%;
+    margin-bottom: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.stat-card {
+    /* White cards for grid too */
+    background: var(--card-bg);
+    border-radius: 16px;
+    padding: 1rem 0.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 6px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+    transition: transform 0.2s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+}
+
+.stat-icon {
+    font-size: 1.2rem;
+    color: #1d1d1f;
+}
+
+.stat-card:first-child .stat-icon {
+    color: #34c759;
+}
+
+.stat-text {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+/* Reveal Delays */
+.reveal-item {
+    opacity: 0;
+    animation: slideUpFade 1s var(--ease-out-expo) forwards;
+}
+
+.delay-1 {
+    animation-delay: 0.1s;
+}
+
+.delay-2 {
+    animation-delay: 0.3s;
+}
+
+.delay-3 {
+    animation-delay: 0.45s;
+}
+
+.delay-4 {
+    animation-delay: 0.6s;
+}
+
+.delay-5 {
+    animation-delay: 0.7s;
+}
+
+/* Footer */
+.footer {
+    opacity: 0.4;
+    transition: opacity 0.3s ease;
+}
+
+.footer:hover {
+    opacity: 1;
+}
+
+.footer a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 1.2rem;
+}
